@@ -3,16 +3,16 @@ import { useEffect, useState } from 'react'; // Import useEffect and useState
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { uploadImageAndMetadata,fetchMetadata } from './src/firebaseFunctions'; // Ensure these are implemented
+import { uploadImageAndMetadata,fetchMetadata } from './src2/firebaseFunctions'; // Ensure these are implemented
 
-// Import your screens
-import Frame from './src/Frame';
-import UploadPage from './src/UploadPage'; // Ensure the correct path
-import GuidelinesPage from './src/GuidelinesPage'; // Ensure the correct path
-import AboutPage from './src/AboutPage'; // Ensure the correct path
-import PredictionScreen from './src/PredictionScreen';
-import ErrorPage from './src/ErrorPage';
-import ResultsPage from './src/ResultsPage';
+// Import your screens  xxxx
+import Frame from './src2/Frame';
+import UploadPage from './src2/UploadPage'; // Ensure the correct path
+import GuidelinesPage from './src2/GuidelinesPage'; // Ensure the correct path
+import AboutPage from './src2/AboutPage'; // Ensure the correct path
+import PredictionScreen from './src2/PredictionScreen';
+import ErrorPage from './src2/ErrorPage';
+import ResultsPage from './src2/ResultsPage';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
