@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ActivityIndicator } from 'react-native';
+import { View, Text, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/styles.js'; 
 
 const PredictionScreen = () => {
@@ -37,6 +39,16 @@ const PredictionScreen = () => {
   }, [imageUri, navigation]);
 
   return (
+    <LinearGradient
+    colors={['#459877', '#132B22']}
+    style={styles.container}
+  >
+    <View style={styles.header}>
+    <Image source={require('../assets/Frame2assets/cowicon.png')} style={styles.logo} />
+    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+      <Icon name="menu" size={30} color="#FFD700" />
+    </TouchableOpacity>
+  </View>
     <View style={styles.pscontainer}>
       {imageUri ? (
         <Image
@@ -52,6 +64,7 @@ const PredictionScreen = () => {
         {hasError ? <Text style={styles.errorText}>Error during prediction.</Text> : null}
       </View>
     </View>
+    </LinearGradient>
   );
 };
 
