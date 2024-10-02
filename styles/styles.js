@@ -136,6 +136,26 @@ const styles = StyleSheet.create({
     top: height * 0.01, // 43% from top
     left: -width * 0.5, // Adjust if needed
   },
+  guidlinescreen:{
+    width: width * 0.5, // 80% of screen width
+    height: height * 0.5, // 70% of screen height
+    position: 'absolute',
+    top:70
+  },
+  downloadButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#FFD700',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  
+  downloadButtonText: {
+    color: '#132B22',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  
   vectorIcon1: {
     width: width * 0.3, // 80% of screen width
     height: height * 0.3, // 70% of screen height
@@ -156,11 +176,10 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   pscontainer: {
-    width: width * 0.9, // 90% of screen width
-    height: height * 0.9, // 90% of screen height
+    width: width * 1.0, // 90% of screen width
+    height: height * 1.0, // 90% of screen height
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2E7D46',
     position: 'relative',
   },
   errorImage: {

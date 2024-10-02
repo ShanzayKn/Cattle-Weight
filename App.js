@@ -12,6 +12,7 @@ import PredictionScreen from './src/PredictionScreen';
 import ErrorPage from './src/ErrorPage';
 
 import DrawerNavigation from './src/DrawerNavigation';
+import Test from './src/test';
 
 const Stack = createNativeStackNavigator();
 // Main App Navigation Setup
@@ -40,6 +41,7 @@ const App = () => {
         <Stack.Screen name="Upload" component={UploadPage} />
         <Stack.Screen name="PredictionScreen" component={PredictionScreen} />
         <Stack.Screen name="ErrorPage" component={ErrorPage} />
+        <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
   );

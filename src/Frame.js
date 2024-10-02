@@ -12,7 +12,7 @@ const Frame = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('Drawer', {
-        screen: 'Upload',
+        screen: 'Upload', 
       });
     }, 5000);
 
