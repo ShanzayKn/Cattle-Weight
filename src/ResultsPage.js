@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image} from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../styles/styles.js'; // Ensure this path is correct
 import WeightInput from './WeightInput.js'; // Adjust the path as needed
@@ -12,10 +12,7 @@ const ResultsPage = ({ route }) => {
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-
       <View style={styles.contentContainer}>
-        
-        
         {imageUri ? (
           <Image
             source={{ uri: imageUri }}
@@ -25,23 +22,13 @@ const ResultsPage = ({ route }) => {
         ) : (
           <Text style={styles.text}>No image provided</Text>
         )}
-        
-        {/* Add more result details here */}
-        <View style={styles.resultDetails}>
-        <Text style={styles.resultDetails}>Prediction Result</Text>
-          <Text style={styles.resultDetails}>   Weight: {p_weight}</Text>
+          <Text style={styles.resultDetails}>Predicted Weight: {p_weight}</Text>
           {/* Display additional result details here */}
-        </View>
       </View>
       <View>
-
         {/* Use the WeightInput component */}
         <WeightInput actualWeight={actualWeight} setActualWeight={setActualWeight} />
-
-    
       </View>
-     
-      
     </LinearGradient>
   );
 };

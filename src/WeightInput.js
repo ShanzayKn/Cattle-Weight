@@ -12,11 +12,20 @@ const WeightInput = ({ actualWeight, setActualWeight }) => {
         style={styles.input}
         placeholder="Actual weight"
         placeholderTextColor="#B0B0B0" // Set the color of the placeholder text
-
         value={actualWeight}
-        onChangeText={setActualWeight} // Update the state on input change
+        onChangeText={(text) => {
+          // Use a regular expression to filter out non-numeric input, allowing one decimal point
+          const numericValue = text.replace(/[^0-9.]/g, '');
+          const decimalCount = (numericValue.match(/\./g) || []).length;
+
+          // Only set the state if the number of decimal points is 1 or less
+          if (decimalCount <= 1) {
+            setActualWeight(numericValue);
+          }
+        }}
         keyboardType="numeric" // Numeric keyboard for weight input
       />
+
     </View>
   );
 };

@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
+
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   resultDetails: {
+    marginTop:20,
     fontSize: width * 0.05, // Scalable font size
     backgroundColor: '#D4E181',
     padding: width * 0.05, // 5% padding
@@ -232,6 +234,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 20,
+    width: '100%',
+    bottom:100 // Adjust width as needed
+  },
+  WeightInput: {
+    marginTop: -10,
     width: '100%',
     bottom:100 // Adjust width as needed
   },
