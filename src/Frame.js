@@ -13,8 +13,8 @@ const Frame = () => {
     const timer = setTimeout(() => {
       navigation.navigate('Drawer', {
         screen: 'Upload', 
-      });
-    }, 5000);
+      });     
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [navigation]);

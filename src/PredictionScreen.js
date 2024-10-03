@@ -8,7 +8,7 @@ import styles from '../styles/styles.js';
 const PredictionScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { imageUri } = route.params || {};
+  const { imageUri,p_weight } = route.params || {};
 
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -17,11 +17,11 @@ const PredictionScreen = () => {
     const performPrediction = async () => {
       try {
         // Simulate prediction process
-        const result = Math.random() > 0.5; // Simulate random success/failure
+        const result = p_weight; // Simulate random success/failure
 
-        if (result) {
+        if (result>0) {
           // Navigate to ResultsPage on success
-          navigation.navigate('ResultsPage', { imageUri });
+          navigation.navigate('ResultsPage', { imageUri,p_weight });
         } else {
           // Navigate to ErrorPage on failure
           setHasError(true);

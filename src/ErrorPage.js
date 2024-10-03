@@ -7,7 +7,7 @@ import styles from '../styles/styles.js'; // Ensure the path is correct
 const ErrorPage = ({ route, navigation }) => {
   const { imageUri } = route.params || {}; 
 
-  console.log('Received imageUri in ErrorPage:', imageUri); // Debugging log
+  // console.log('Received imageUri in ErrorPage:', imageUri); // Debugging log
   
   return (
     <LinearGradient

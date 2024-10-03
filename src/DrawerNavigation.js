@@ -15,7 +15,7 @@ const DrawerNavigation = () => {
     <Drawer.Navigator>
        <Drawer.Screen name="Upload" component={UploadPage} />
       <Drawer.Screen name="Guidelines" component={GuidelinesPage} />
-      <Drawer.Screen name="Test" component={Test} />
+      {/* <Drawer.Screen name="Test" component={Test} /> */}
       <Drawer.Screen name="About" component={AboutPage} />
       <Drawer.Screen name="PredictionScreen" component={PredictionScreen} />
       <Drawer.Screen name="ErrorPage" component={ErrorPage} />

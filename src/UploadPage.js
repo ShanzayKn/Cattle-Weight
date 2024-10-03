@@ -18,33 +18,42 @@ const UploadPage = () => {
       description: 'Cow image for weight prediction',
     };
 
-    const imageFile = {
-      uri: image.uri,
-      name: image.uri.split('/').pop() || 'uploaded_image.jpg', // Get the file name
-    };
-
+      const imageFile = {
+        uri: image.uri,
+        name: image.uri.split('/').pop() || 'uploaded_image.jpg', // Get the file name
+        type: 'image/jpeg',  // Assuming the image type is JPEG
+      };
+       const base64Data = imageFile.uri.split(',')[1];  // Extract everything after the comma
+      // console.log(base64Data)
+      const image_b = {
+        image: base64Data
+      }
     try {
       // Upload the image and metadata to Firebase
       await uploadImageAndMetadata(imageFile, metadata);
 
       // Send the image URI to the backend (Flask) for prediction
-      await sendToBackend(image.uri);
+      await sendToBackend(image_b,imageFile.uri);
 
-      // Navigate to the prediction screen
-      navigation.navigate('PredictionScreen', { imageUri: image.uri });
+      
     } catch (error) {
-      console.error('Error during image upload:', error);
+      console.error('Error during image upload:', error); 
     }
   };
 
   // Function to send the image URI to the backend for processing
-  const sendToBackend = async (imageUri) => {
+  const sendToBackend = async (image_b,imageUri) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/predict', {
-        imageUri: imageUri,
+      const response = await axios.post('http://127.0.0.1:5000/predict', image_b, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      console.log(response.data);  // Handle the response (e.g., show result to user)
+    // Navigate to the prediction screen
+      navigation.navigate('PredictionScreen', { imageUri: imageUri, p_weight:response.data.predicted_weight });
+      // console.log(response.data.predicted_weight);  // Handle the response (e.g., show result to user)
     } catch (error) {
+      // console.log(imageFile)
       console.error('Error sending image to backend:', error);
     }
   };
@@ -97,13 +106,8 @@ const UploadPage = () => {
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-      <View style={styles.header}>
-        <Image source={require('../assets/Frame2assets/cowicon.png')} style={styles.logo} />
-        
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ position: 'absolute', right: 20, top: 20 }}>
-          <Icon name="menu" size={40} color="#FFD700" />
-        </TouchableOpacity>
-      </View>
+      
+      
 
       <Text style={styles.asktitle}>How would you like to upload your image?</Text>
 

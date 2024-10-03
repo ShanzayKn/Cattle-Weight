@@ -36,12 +36,13 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        
         <Stack.Screen name="Frame" component={Frame} />
         <Stack.Screen name="Drawer" component={DrawerNavigation} />
         <Stack.Screen name="Upload" component={UploadPage} />
         <Stack.Screen name="PredictionScreen" component={PredictionScreen} />
         <Stack.Screen name="ErrorPage" component={ErrorPage} />
-        <Stack.Screen name="Test" component={Test} />
+        {/* <Stack.Screen name="Test" component={Test} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

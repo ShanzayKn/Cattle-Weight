@@ -6,7 +6,7 @@ import WeightInput from './WeightInput.js'; // Adjust the path as needed
 import { useState } from 'react';
 
 const ResultsPage = ({ route }) => {
-  const { imageUri } = route.params || {};
+  const { imageUri,p_weight } = route.params || {};
   console.log('Received imageUri in ResultsPage:', imageUri); // Debugging log
   const [actualWeight, setActualWeight] = useState(''); // Define state for actualWeight
 
@@ -32,7 +32,7 @@ const ResultsPage = ({ route }) => {
         {/* Add more result details here */}
         <View style={styles.resultDetails}>
         <Text style={styles.resultDetails}>Prediction Result</Text>
-          <Text style={styles.resultDetails}>   Weight:</Text>
+          <Text style={styles.resultDetails}>   Weight: {p_weight}</Text>
           {/* Display additional result details here */}
         </View>
       </View>
