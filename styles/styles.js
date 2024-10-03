@@ -127,6 +127,13 @@ const styles = StyleSheet.create({
     fontStyle: 'oblique',
     fontWeight: 'bold',
   },
+  guidlinetext: {
+    fontSize: width * 0.05, // Scalable font size
+    color: '#E4A951',
+    fontStyle: 'oblique',
+    fontWeight: 'bold',
+    marginTop:-200,
+  },
   spinner: {
     marginTop: height * 0.02, // 2% margin
   },
@@ -137,6 +144,13 @@ const styles = StyleSheet.create({
     top: height * 0.01, // 43% from top
     left: -width * 0.5, // Adjust if needed
   },
+  guidlineicon: {
+    width: width * 0.5, // 80% of screen width
+    height: height * 0.5, // 70% of screen height
+    position: 'absolute',
+    top: 250, // 43% from top
+    left: 5, // Adjust if needed
+  },
   guidlinescreen:{
     width: width * 0.5, // 80% of screen width
     height: height * 0.5, // 70% of screen height
@@ -144,7 +158,7 @@ const styles = StyleSheet.create({
     top:70
   },
   downloadButton: {
-    marginTop: 20,
+    top: 250,
     padding: 10,
     backgroundColor: '#FFD700',
     borderRadius: 5,
@@ -205,6 +219,11 @@ const styles = StyleSheet.create({
   goBackButton: {
     backgroundColor: '#D4E181',
     padding: width * 0.05, // 5% padding
+    borderRadius: width * 0.05, // Rounded corners
+  },
+  DownloadImage: {
+    backgroundColor: '#D4E181',
+    padding: width * 0.03, // 5% padding
     borderRadius: width * 0.05, // Rounded corners
   },
   buttonText: {

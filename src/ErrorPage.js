@@ -14,20 +14,14 @@ const ErrorPage = ({ route, navigation }) => {
       colors={['#459877', '#132B22']}
       style={styles.container}
     >
-      {/* <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Icon name="menu" size={30} color="#FFD700" />
-        </TouchableOpacity>
-      </View> */}
-
       <View style={styles.contentContainer}>
         <Text style={styles.textt}>Markers not found</Text>
 
        {imageUri ? (
         <Image
           source={{ uri: imageUri }}
-          style={styles.image} // Ensure this style is correctly defined in your styles
-          resizeMode="contain" // Adjust as needed for better image display
+          style={styles.image} 
+          resizeMode="contain" 
         />
       ) : (
         <Text style={styles.text}>No image provided</Text>

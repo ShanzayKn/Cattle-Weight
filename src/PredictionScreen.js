@@ -54,7 +54,7 @@ const PredictionScreen = () => {
         <Text style={styles.text}>No image provided</Text>
       )}
       <View style={styles.loaderContainer}>
-        {isLoading ? <ActivityIndicator size="large" color="#FFD700" /> : null}
+        {isLoading ? <ActivityIndicator size="large" color="#FFD700" /> : "null"}
         {hasError ? <Text style={styles.errorText}>Error during prediction.</Text> : null}
       </View>
     </View>

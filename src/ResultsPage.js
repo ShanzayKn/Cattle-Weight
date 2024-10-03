@@ -16,17 +16,17 @@ const ResultsPage = ({ route }) => {
         {imageUri ? (
           <Image
             source={{ uri: imageUri }}
-            style={styles.image} // Ensure this style is defined in your styles
-            resizeMode="contain" // Adjust as needed for better image display
+            style={styles.image} 
+            resizeMode="contain" 
           />
         ) : (
           <Text style={styles.text}>No image provided</Text>
         )}
           <Text style={styles.resultDetails}>Predicted Weight: {p_weight}</Text>
-          {/* Display additional result details here */}
+         
       </View>
       <View>
-        {/* Use the WeightInput component */}
+        
         <WeightInput actualWeight={actualWeight} setActualWeight={setActualWeight} />
       </View>
     </LinearGradient>

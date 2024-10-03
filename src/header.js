@@ -8,7 +8,7 @@ const CustomHeader = ({ navigation }) => {
     <View style={styles.header}>
       <Image source={require('../assets/Frame2assets/cowicon.png')} style={styles.logo} />
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <Icon name="bars" size={30} color="#FFD700" /> {/* Use 'bars' instead of 'menu' */}
+        <Icon name="bars" size={30} color="#FFD700" /> 
       </TouchableOpacity>
     </View>
   );
