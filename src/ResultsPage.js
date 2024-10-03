@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../styles/styles.js'; // Ensure this path is correct
 import WeightInput from './WeightInput.js'; // Adjust the path as needed
@@ -12,9 +12,6 @@ const ResultsPage = ({ route }) => {
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-      <View style={styles.header}>
-        {/* Add header content if needed */}
-      </View>
 
       <View style={styles.contentContainer}>
         

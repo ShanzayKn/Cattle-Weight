@@ -10,12 +10,12 @@ const AboutPage = ({ navigation }) => (
     colors={['#459877', '#132B22']}
     style={styles.container}
   >
-    <View style={styles.header}>
+    {/* <View style={styles.header}>
       <Image source={require('../assets/Frame2assets/cowicon.png')} style={styles.logo} />
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <Icon name="menu" size={30} color="#FFD700" />
       </TouchableOpacity>
-    </View>
+    </View> */}
     <View style={styles.contentContainer}>
       <Text style={styles.text}>About Content</Text>
     </View>

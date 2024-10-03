@@ -106,7 +106,7 @@ const UploadPage = () => {
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-      
+    
       
 
       <Text style={styles.asktitle}>How would you like to upload your image?</Text>

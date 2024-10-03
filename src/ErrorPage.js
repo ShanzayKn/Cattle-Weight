@@ -14,11 +14,11 @@ const ErrorPage = ({ route, navigation }) => {
       colors={['#459877', '#132B22']}
       style={styles.container}
     >
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Icon name="menu" size={30} color="#FFD700" />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={styles.contentContainer}>
         <Text style={styles.textt}>Markers not found</Text>

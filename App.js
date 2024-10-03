@@ -12,7 +12,6 @@ import PredictionScreen from './src/PredictionScreen';
 import ErrorPage from './src/ErrorPage';
 
 import DrawerNavigation from './src/DrawerNavigation';
-import Test from './src/test';
 
 const Stack = createNativeStackNavigator();
 // Main App Navigation Setup
