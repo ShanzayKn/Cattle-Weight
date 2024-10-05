@@ -19,6 +19,7 @@ const DrawerNavigation = () => {
         drawerStyle: {
           backgroundColor: 'transparent', // Allow background to show gradient
           width: 240,
+          top:30,
           borderTopRightRadius: 20, // Rounded corners
           borderBottomRightRadius: 20, // Rounded corners
           overflow: 'hidden', // Prevent overflow due to rounded corners

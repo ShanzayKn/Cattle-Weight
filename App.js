@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false,  }}>
         
         <Stack.Screen name="Frame" component={Frame} />
         <Stack.Screen name="Drawer" component={DrawerNavigation} />

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: width * 0.05, // 5% padding
     position: 'absolute',
-    top: 0,
+    top: 15,
     zIndex: 1,
   },
   logo: {
