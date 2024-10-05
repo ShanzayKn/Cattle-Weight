@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
     fontSize: width * 0.05, // Scalable font size
     fontWeight: 'bold',
   },
+  guidlinemodaltext: {
+    color: '#FFD700',
+    fontSize: width * 0.05, // Scalable font size
+    fontWeight: 'bold',
+  },
   initiateButton: {
     marginTop: height * 0.02, // 2% margin
     backgroundColor: '#FFD700',
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
     height: height * 0.5, // 70% of screen height
     position: 'absolute',
     top: 250, // 43% from top
-    left: 5, // Adjust if needed
+   
   },
   guidlinescreen:{
     width: width * 0.5, // 80% of screen width
@@ -164,8 +169,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
+  guidlinedownloadButton: {
+    top: 500,
+    padding: 10,
+    backgroundColor: '#FFD700',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
   
   downloadButtonText: {
+    color: '#132B22',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  guidlinedownloadButtonText: {
     color: '#132B22',
     fontSize: 16,
     fontWeight: 'bold',
@@ -283,6 +300,49 @@ const styles = StyleSheet.create({
     marginTop: height * -0.05, // Negative margin to start higher
     marginBottom: height * 0.02, // Space below the title
     textAlign: 'center', // Centered title
+    },
+    modalOverlay: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Transparent dark background
+      
+    },
+    modalContainer: {
+      width: '90%',
+      height: '70%',  // Updated to limit the height for scroll
+      backgroundColor: '#FFFFFF',
+      borderRadius: 10,
+      padding: 20,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+      elevation: 5,
+      
+    },
+    modalScrollContent: {
+      flexGrow: 1,  // Allows scrolling content to grow
+      paddingBottom: 20, // Ensure content is spaced from the bottom
+    },
+    modalTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#132B22',
+      marginBottom: 15,
+      textAlign: 'center',
+    },
+    closeButton: {
+      backgroundColor: '#FFD700',
+      padding: 10,
+      borderRadius: 5,
+      alignItems: 'center',
+      marginTop: 15,
+    },
+    closeButtonText: {
+      color: '#132B22',
+      fontSize: 16,
+      fontWeight: 'bold',
     },
 });
 
