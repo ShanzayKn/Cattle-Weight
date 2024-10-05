@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   guidlinedownloadButton: {
-    top: 500,
+    top: 450,
     padding: 10,
     backgroundColor: '#FFD700',
     borderRadius: 5,
