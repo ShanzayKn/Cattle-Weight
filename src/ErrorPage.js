@@ -5,10 +5,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/styles.js'; // Ensure the path is correct
 
 const ErrorPage = ({ route, navigation }) => {
-  const { imageUri } = route.params || {}; 
+  const { imageUri } = route.params || {};
 
   // console.log('Received imageUri in ErrorPage:', imageUri); // Debugging log
-  
+
   return (
     <LinearGradient
       colors={['#459877', '#132B22']}
@@ -17,18 +17,18 @@ const ErrorPage = ({ route, navigation }) => {
       <View style={styles.contentContainer}>
         <Text style={styles.textt}>Markers not found</Text>
 
-       {imageUri ? (
-        <Image
-          source={{ uri: imageUri }}
-          style={styles.image} 
-          resizeMode="contain" 
-        />
-      ) : (
-        <Text style={styles.text}>No image provided</Text>
-      )}
- <Text style={styles.textt}>It looks like our model could not detect the markers. </Text>
- <Text style={styles.textt}>Please review the guidelines and try again.</Text>
- 
+        {imageUri ? (
+          <Image
+            source={{ uri: imageUri }}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text style={styles.text}>No image provided</Text>
+        )}
+        <Text style={styles.textt}>It looks like our model could not detect the markers. </Text>
+        <Text style={styles.textt}>Please review the guidelines and try again.</Text>
+
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -44,7 +44,7 @@ const ErrorPage = ({ route, navigation }) => {
           >
             <Text style={styles.buttonText}>Go Back</Text>
           </TouchableOpacity>
-         
+
         </View>
       </View>
     </LinearGradient>

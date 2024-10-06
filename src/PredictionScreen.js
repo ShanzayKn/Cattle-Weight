@@ -19,7 +19,7 @@ const PredictionScreen = () => {
         // Simulate prediction process
         const result = p_weight; // Simulate random success/failure
 
-        if (result>0) {
+        if (result) {
           // Navigate to ResultsPage on success
           navigation.navigate('ResultsPage', { imageUri,p_weight });
         } else {

@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Alert, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import LottieView from 'lottie-react-native'; // Import Lottie
 import { uploadImageAndMetadata } from './firebaseFunctions.js'; // Import Firebase function
 import styles from '../styles/styles.js'; // Ensure the path is correct
 import axios from 'axios';
 
 const UploadPage = () => {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [loadingText, setLoadingText] = useState('Loading'); // Text for animation
+
+  // Text animation logic
+  useEffect(() => {
+    let animationInterval;
+    if (isLoading) {
+      animationInterval = setInterval(() => {
+        setLoadingText((prevText) => {
+          switch (prevText) {
+            case 'Loading':
+              return 'Loading.';
+            case 'Loading.':
+              return 'Loading..';
+            case 'Loading..':
+              return 'Loading...';
+            default:
+              return 'Loading';
+          }
+        });
+      }, 500); // Change every 500ms
+    } else {
+      clearInterval(animationInterval); // Stop animation when not loading
+    }
+
+    return () => clearInterval(animationInterval); // Cleanup interval on unmount
+  }, [isLoading]);
 
   // Function to upload image and metadata to Firebase and backend
   const handleUpload = async (image) => {
+    setIsLoading(true); // Start loader
     const metadata = {
       uploadedAt: new Date().toISOString(),
       description: 'Cow image for weight prediction',
@@ -28,14 +57,16 @@ const UploadPage = () => {
     const image_b = {
       image: base64Data,
     };
-    
+
     try {
       // Upload the image and metadata to Firebase
       await uploadImageAndMetadata(imageFile, metadata);
       // Send the image URI to the backend (Flask) for prediction
       await sendToBackend(image_b, imageFile.uri);
     } catch (error) {
-      console.error('Error during image upload:', error); 
+      console.error('Error during image upload:', error);
+    } finally {
+      setIsLoading(false); // Stop loader
     }
   };
 
@@ -51,6 +82,7 @@ const UploadPage = () => {
       navigation.navigate('PredictionScreen', { imageUri: imageUri, p_weight: response.data.predicted_weight });
     } catch (error) {
       console.error('Error sending image to backend:', error);
+      Alert.alert('Error', 'Error sending image to backend. ');
     }
   };
 
@@ -96,41 +128,58 @@ const UploadPage = () => {
         handleUpload(result.assets[0]); // Call handleUpload with the captured image
       }
     } catch (error) {
+      Alert.alert('Error', 'Error capturing image from camera.');
       console.error('Error capturing image from camera:', error);
     }
   };
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-      <Text style={styles.asktitle}>How would you like to upload your image?</Text>
 
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={[styles.iconButton, styles.cameraButton]}
-          onPress={pickImageFromCamera}
-          activeOpacity={0.7}
-        >
-          <Icon name="camera-outline" size={50} color="#fff" />
-        </TouchableOpacity>
+      {isLoading ? (
+        <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
+          <LottieView
+            source={require('../assets/cow_animation.json')} // Your Lottie file path
+            autoPlay
+            loop
+            style={{ width: 200, height: 200 }} // Adjust size accordingly
+          />
+          <Text style={styles.loading}>{loadingText}</Text> 
+        </LinearGradient>
 
-        <TouchableOpacity
-          style={[styles.iconButton, styles.galleryButton]}
-          onPress={pickImageFromGallery}
-          activeOpacity={0.7}
-        >
-          <Icon name="image-outline" size={50} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      ) : (
+        <>
+          <Text style={styles.asktitle}>How would you like to upload your image?</Text>
 
-      <TouchableOpacity
-        style={styles.guidelinebutton}
-        onPress={() => navigation.navigate('Guidelines')}
-        activeOpacity={0.7}
-      >
-        <Text style={styles.guidelineText}>Guidelines for Annotations</Text>
-      </TouchableOpacity>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={[styles.iconButton, styles.cameraButton]}
+              onPress={pickImageFromCamera}
+              activeOpacity={0.7}
+            >
+              <Icon name="camera-outline" size={50} color="#fff" />
+            </TouchableOpacity>
 
-      <Image source={require('../assets/Frame2assets/Subtract.png')} style={styles.blobIcon} resizeMode="contain" />
+            <TouchableOpacity
+              style={[styles.iconButton, styles.galleryButton]}
+              onPress={pickImageFromGallery}
+              activeOpacity={0.7}
+            >
+              <Icon name="image-outline" size={50} color="#fff" />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.guidelinebutton}
+            onPress={() => navigation.navigate('Guidelines')}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.guidelineText}>Guidelines for Annotations</Text>
+          </TouchableOpacity>
+
+          <Image source={require('../assets/Frame2assets/Subtract.png')} style={styles.blobIcon} resizeMode="contain" />
+        </>
+      )}
     </LinearGradient>
   );
 };

@@ -66,19 +66,6 @@ const DrawerNavigation = () => {
         })}
       />
       <Drawer.Screen
-        name="About"
-        component={AboutPage}
-        options={({ navigation }) => ({
-          header: () => <CustomHeader navigation={navigation} />,
-          drawerLabel: () => (
-            <View style={styles.drawerItemContainer}>
-              <Icon name="info-circle" size={24} color="#FFD700" style={styles.icon} />
-              <Text style={styles.drawerItem}>About</Text>
-            </View>
-          ),
-        })}
-      />
-      <Drawer.Screen
         name="PredictionScreen"
         component={PredictionScreen}
         options={({ navigation }) => ({
@@ -91,7 +78,7 @@ const DrawerNavigation = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="ErrorPage"
         component={ErrorPage}
         options={({ navigation }) => ({
@@ -103,7 +90,7 @@ const DrawerNavigation = () => {
             </View>
           ),
         })}
-      />
+      /> */}
       <Drawer.Screen
         name="ResultsPage"
         component={ResultsPage}
@@ -113,6 +100,19 @@ const DrawerNavigation = () => {
             <View style={styles.drawerItemContainer}>
               <Icon name="check-circle" size={24} color="#FFD700" style={styles.icon} />
               <Text style={styles.drawerItem}>Results</Text>
+            </View>
+          ),
+        })}
+      />
+        <Drawer.Screen
+        name="About"
+        component={AboutPage}
+        options={({ navigation }) => ({
+          header: () => <CustomHeader navigation={navigation} />,
+          drawerLabel: () => (
+            <View style={styles.drawerItemContainer}>
+              <Icon name="info-circle" size={24} color="#FFD700" style={styles.icon} />
+              <Text style={styles.drawerItem}>About</Text>
             </View>
           ),
         })}

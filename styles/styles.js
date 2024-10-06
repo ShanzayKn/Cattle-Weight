@@ -301,6 +301,14 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.02, // Space below the title
     textAlign: 'center', // Centered title
     },
+  loading: {
+    fontSize: width * 0.05, // Larger font size for the title
+    color: '#FFD700', // White color
+    fontWeight: 'bold', // Bold title
+    marginTop: height * 0.01, // Negative margin to start higher
+    marginBottom: height * 0.02, // Space below the title
+    textAlign: 'center', // Centered title
+    },
     modalOverlay: {
       flex: 1,
       justifyContent: 'center',
