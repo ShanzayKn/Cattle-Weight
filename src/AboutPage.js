@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Linking, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -17,16 +17,17 @@ const AboutPage = ({ navigation }) => {
       <View style={styles.contentContainer}>
 
         {/* App Logo or Image */}
-        <Image 
+        <Image
           source={require('../assets/icon.png')} // Path to your app logo
-          style={styles.logo} 
+          style={styles.logo}
         />
 
         {/* App Name and Description */}
-        <Text style={styles.title}>My Awesome App</Text>
+        <Text style={styles.title}>Cattle Weight Prediction</Text>
         <Text style={styles.description}>
-          Welcome to My Awesome App! Our mission is to help users easily manage their daily tasks. Explore the features and enjoy the seamless experience!
+          Welcome to the Cattle Weight Prediction App! This tool helps farmers and specialists easily estimate the weight of cattle using image-based predictions. Follow the simple guidelines, upload your images, and receive accurate weight predictions to assist in managing livestock more efficiently.
         </Text>
+
 
         {/* Developer/Team Info */}
         <Text style={styles.sectionTitle}>About the Team</Text>
@@ -40,7 +41,7 @@ const AboutPage = ({ navigation }) => {
 
         {/* Contact Info */}
         <Text style={styles.sectionTitle}>Contact Us</Text>
-        <Text style={styles.text}>For inquiries, email us at: support@myawesomeapp.com</Text>
+        <Text style={styles.text}>For inquiries, email us at: smartcity907@gmail.com</Text>
 
         {/* Social Media Links */}
         <Text style={styles.sectionTitle}>Follow Us</Text>
@@ -57,9 +58,9 @@ const AboutPage = ({ navigation }) => {
         </View>
 
         {/* Feedback Button */}
-        <TouchableOpacity 
-          style={styles.feedbackButton} 
-          onPress={() => openLink('mailto:support@myawesomeapp.com?subject=App Feedback')}
+        <TouchableOpacity
+          style={styles.feedbackButton}
+          onPress={() => openLink('mailto:smartcity907@gmail.com?subject=App Feedback')}
         >
           <Text style={styles.feedbackButtonText}>Send Feedback</Text>
         </TouchableOpacity>
