@@ -73,7 +73,7 @@ const UploadPage = () => {
   // Function to send the image URI to the backend for processing
   const sendToBackend = async (image_b, imageUri) => {
     try {
-      const response = await axios.post('http://192.168.8.111:5000/predict', image_b, {
+      const response = await axios.post('http://68.183.233.127:5000/predict', image_b, {
         headers: {
           'Content-Type': 'application/json',
         },
