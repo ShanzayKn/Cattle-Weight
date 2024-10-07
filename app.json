@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "1818ba8b-bc46-4ba8-a171-68e5ff7fe34f"
+      }
+    },
+    "android": {
+      "package": "com.mohsintaj.cattleweight"
+    }
+  }
+}
