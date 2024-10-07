@@ -169,6 +169,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
+  submitbutton: {
+    top: -30,
+    padding: 10,
+    backgroundColor: '#FFD700',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
   guidlinedownloadButton: {
     top: 450,
     padding: 10,
@@ -279,10 +286,12 @@ const styles = StyleSheet.create({
     bottom:100 // Adjust width as needed
   },
   inputLabel: {
+    top:-50,
     fontSize: 16,
     color: '#D4E181', // Adjust text color as needed
   },
   input: {
+    top:-40,
     height: 50,
     borderColor: '#ccc',
     borderWidth: 1,

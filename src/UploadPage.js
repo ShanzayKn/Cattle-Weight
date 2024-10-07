@@ -91,7 +91,7 @@ const UploadPage = () => {
   };
 
   const sendToBackend = async (imagePayload, imageUri) => {
-    console.log("image: ",imagePayload)
+    // console.log("image: ",imagePayload)
     try {
       const response = await axios.post(
         'http://192.168.100.52:5000/predict',
