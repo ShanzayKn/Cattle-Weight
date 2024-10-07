@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import LottieView from 'lottie-react-native'; // Import Lottie
+// import LottieView from 'lottie-react-native'; // Import Lottie
 import { uploadImageAndMetadata } from './firebaseFunctions.js'; // Import Firebase function
 import styles from '../styles/styles.js'; // Ensure the path is correct
 import axios from 'axios';
@@ -73,7 +73,7 @@ const UploadPage = () => {
   // Function to send the image URI to the backend for processing
   const sendToBackend = async (image_b, imageUri) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/predict', image_b, {
+      const response = await axios.post('http://192.168.8.111:5000/predict', image_b, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -138,12 +138,14 @@ const UploadPage = () => {
 
       {isLoading ? (
         <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-          <LottieView
+
+          {/* <LottieView
             source={require('../assets/cow_animation.json')} // Your Lottie file path
-            autoPlay
+            autoPlay   
             loop
             style={{ width: 200, height: 200 }} // Adjust size accordingly
-          />
+          /> */}
+
           <Text style={styles.loading}>{loadingText}</Text> 
         </LinearGradient>
 
