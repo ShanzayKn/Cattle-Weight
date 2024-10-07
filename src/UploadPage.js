@@ -13,6 +13,53 @@ const UploadPage = () => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const [loadingText, setLoadingText] = useState('Loading'); // Text for animation
+  
+  // Function to pick image from the gallery
+  const pickImageFromGallery = async () => {
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'You need to allow gallery permissions to upload images.');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets) {
+        handleUpload(result.assets[0]); // Call handleUpload with the selected image
+      }
+    } catch (error) {
+      console.error('Error picking image from gallery:', error);
+    }
+  };
+
+  // Function to capture image from the camera
+  const pickImageFromCamera = async () => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'You need to allow camera permissions to take a photo.');
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true, 
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets) {
+        handleUpload(result.assets[0]); // Call handleUpload with the captured image
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Error capturing image from camera.');
+      console.error('Error capturing image from camera:', error);
+    }
+  };
 
   // Text animation logic
   useEffect(() => {
@@ -78,6 +125,7 @@ const UploadPage = () => {
           'Content-Type': 'application/json',
         },
       });
+      console.log("to see",image_b)
       // Navigate to the prediction screen
       navigation.navigate('PredictionScreen', { imageUri: imageUri, p_weight: response.data.predicted_weight });
     } catch (error) {
@@ -86,52 +134,7 @@ const UploadPage = () => {
     }
   };
 
-  // Function to pick image from the gallery
-  const pickImageFromGallery = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'You need to allow gallery permissions to upload images.');
-        return;
-      }
 
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 1,
-      });
-
-      if (!result.canceled && result.assets) {
-        handleUpload(result.assets[0]); // Call handleUpload with the selected image
-      }
-    } catch (error) {
-      console.error('Error picking image from gallery:', error);
-    }
-  };
-
-  // Function to capture image from the camera
-  const pickImageFromCamera = async () => {
-    try {
-      const { status } = await ImagePicker.requestCameraPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'You need to allow camera permissions to take a photo.');
-        return;
-      }
-
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 1,
-      });
-
-      if (!result.canceled && result.assets) {
-        handleUpload(result.assets[0]); // Call handleUpload with the captured image
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Error capturing image from camera.');
-      console.error('Error capturing image from camera:', error);
-    }
-  };
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
