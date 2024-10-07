@@ -4,176 +4,144 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import LottieView from 'lottie-react-native'; // Import Lottie
-import { uploadImageAndMetadata } from './firebaseFunctions.js'; // Import Firebase function
-import styles from '../styles/styles.js'; // Ensure the path is correct
+import LottieView from 'lottie-react-native';
+import { uploadImageAndMetadata } from './firebaseFunctions.js';
+import styles from '../styles/styles.js';
 import axios from 'axios';
 
 const UploadPage = () => {
   const navigation = useNavigation();
-  const [isLoading, setIsLoading] = useState(false); // Loading state
-  const [loadingText, setLoadingText] = useState('Loading'); // Text for animation
-  
-  // Function to pick image from the gallery
-  const pickImageFromGallery = async () => {
+  const [loadingState, setLoadingState] = useState({ isLoading: false, loadingText: 'Loading' });
+
+  const pickImage = async (source) => {
     try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const permissionMethod =
+        source === 'gallery'
+          ? ImagePicker.requestMediaLibraryPermissionsAsync
+          : ImagePicker.requestCameraPermissionsAsync;
+  
+      const { status } = await permissionMethod();
       if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'You need to allow gallery permissions to upload images.');
+        Alert.alert('Permission Denied', `You need to allow ${source} permissions to upload images.`);
         return;
       }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
+  
+      const pickerMethod =
+        source === 'gallery' ? ImagePicker.launchImageLibraryAsync : ImagePicker.launchCameraAsync;
+  
+      const result = await pickerMethod({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         quality: 1,
+        base64: true, // Enable base64 in the picker options
       });
-
+  
       if (!result.canceled && result.assets) {
-        handleUpload(result.assets[0]); // Call handleUpload with the selected image
+        handleUpload(result.assets[0]);
       }
     } catch (error) {
-      console.error('Error picking image from gallery:', error);
+      console.error(`Error picking image from ${source}:`, error);
+      Alert.alert('Error', `Error picking image from ${source}.`);
     }
   };
 
-  // Function to capture image from the camera
-  const pickImageFromCamera = async () => {
-    try {
-      const { status } = await ImagePicker.requestCameraPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'You need to allow camera permissions to take a photo.');
-        return;
-      }
-
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true, 
-        quality: 1,
-      });
-
-      if (!result.canceled && result.assets) {
-        handleUpload(result.assets[0]); // Call handleUpload with the captured image
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Error capturing image from camera.');
-      console.error('Error capturing image from camera:', error);
-    }
-  };
-
-  // Text animation logic
   useEffect(() => {
     let animationInterval;
-    if (isLoading) {
+    if (loadingState.isLoading) {
       animationInterval = setInterval(() => {
-        setLoadingText((prevText) => {
-          switch (prevText) {
-            case 'Loading':
-              return 'Loading.';
-            case 'Loading.':
-              return 'Loading..';
-            case 'Loading..':
-              return 'Loading...';
-            default:
-              return 'Loading';
-          }
-        });
-      }, 500); // Change every 500ms
+        setLoadingState((prev) => ({
+          ...prev,
+          loadingText: prev.loadingText === 'Loading...'
+            ? 'Loading'
+            : prev.loadingText + '.',
+        }));
+      }, 500);
     } else {
-      clearInterval(animationInterval); // Stop animation when not loading
+      clearInterval(animationInterval);
     }
+    return () => clearInterval(animationInterval);
+  }, [loadingState.isLoading]);
 
-    return () => clearInterval(animationInterval); // Cleanup interval on unmount
-  }, [isLoading]);
-
-  // Function to upload image and metadata to Firebase and backend
   const handleUpload = async (image) => {
-    setIsLoading(true); // Start loader
+    setLoadingState({ isLoading: true, loadingText: 'Loading' });
+  
     const metadata = {
       uploadedAt: new Date().toISOString(),
       description: 'Cow image for weight prediction',
     };
-
+  
     const imageFile = {
       uri: image.uri,
-      name: image.uri.split('/').pop() || 'uploaded_image.jpg', // Get the file name
-      type: 'image/jpeg',  // Assuming the image type is JPEG
+      name: image.uri.split('/').pop() || 'uploaded_image.jpg',
+      type: 'image/jpeg',
     };
-
-    const base64Data = imageFile.uri.split(',')[1];  // Extract everything after the comma
-    const image_b = {
-      image: base64Data,
-    };
-
+  
+    const base64Data = image.base64; // Use base64 from the image picker result
+    const imagePayload = { image: base64Data };
+  
     try {
-      // Upload the image and metadata to Firebase
       await uploadImageAndMetadata(imageFile, metadata);
-      // Send the image URI to the backend (Flask) for prediction
-      await sendToBackend(image_b, imageFile.uri);
+      await sendToBackend(imagePayload, imageFile.uri);
     } catch (error) {
       console.error('Error during image upload:', error);
+      Alert.alert('Error', 'Error during image upload.');
     } finally {
-      setIsLoading(false); // Stop loader
+      setLoadingState({ isLoading: false, loadingText: 'Loading' });
     }
   };
 
-  // Function to send the image URI to the backend for processing
-  const sendToBackend = async (image_b, imageUri) => {
+  const sendToBackend = async (imagePayload, imageUri) => {
+    console.log("image: ",imagePayload)
     try {
-      const response = await axios.post('http://68.183.233.127:5000/predict', image_b, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await axios.post(
+        'http://192.168.100.52:5000/predict',
+        imagePayload,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      
+      navigation.navigate('PredictionScreen', {
+        imageUri,
+        p_weight: response.data.predicted_weight,
       });
-      console.log("to see",image_b)
-      // Navigate to the prediction screen
-      navigation.navigate('PredictionScreen', { imageUri: imageUri, p_weight: response.data.predicted_weight });
     } catch (error) {
       console.error('Error sending image to backend:', error);
-      Alert.alert('Error', 'Error sending image to backend. ');
+      Alert.alert('Error', 'Error sending image to backend.');
     }
   };
-
-
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-
-      {isLoading ? (
-        <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
-
-          {/* <LottieView
-            source={require('../assets/cow_animation.json')} // Your Lottie file path
-            autoPlay   
+      {loadingState.isLoading ? (
+        <>
+          <LottieView
+            source={require('../assets/loader.json')}
+            autoPlay
             loop
-            style={{ width: 200, height: 200 }} // Adjust size accordingly
-          /> */}
-
-          <Text style={styles.loading}>{loadingText}</Text> 
-        </LinearGradient>
-
+            style={{ width: 200, height: 200 }}
+          />
+          <Text style={styles.loading}>{loadingState.loadingText}</Text>
+        </>
       ) : (
         <>
           <Text style={styles.asktitle}>How would you like to upload your image?</Text>
-
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
               style={[styles.iconButton, styles.cameraButton]}
-              onPress={pickImageFromCamera}
+              onPress={() => pickImage('camera')}
               activeOpacity={0.7}
             >
               <Icon name="camera-outline" size={50} color="#fff" />
             </TouchableOpacity>
-
             <TouchableOpacity
               style={[styles.iconButton, styles.galleryButton]}
-              onPress={pickImageFromGallery}
+              onPress={() => pickImage('gallery')}
               activeOpacity={0.7}
             >
               <Icon name="image-outline" size={50} color="#fff" />
             </TouchableOpacity>
           </View>
-
           <TouchableOpacity
             style={styles.guidelinebutton}
             onPress={() => navigation.navigate('Guidelines')}
@@ -181,8 +149,11 @@ const UploadPage = () => {
           >
             <Text style={styles.guidelineText}>Guidelines for Annotations</Text>
           </TouchableOpacity>
-
-          <Image source={require('../assets/Frame2assets/Subtract.png')} style={styles.blobIcon} resizeMode="contain" />
+          <Image
+            source={require('../assets/Frame2assets/Subtract.png')}
+            style={styles.blobIcon}
+            resizeMode="contain"
+          />
         </>
       )}
     </LinearGradient>
