@@ -40,11 +40,12 @@ const ResultsPage = ({ route }) => {
   };
 
   const formatWeightRange = (weight) => {
-    if (!weight) return weight?.toFixed(2);
-    const lowerBound = (weight / 40)?.toFixed(2);
-    const upperBound = (weight / 40 + 0.32)?.toFixed(2);
+    if (!weight) return Math.round(weight);
+    const lowerBound = Math.round(weight / 40);
+    const upperBound = Math.round(weight / 40 + 0.32);
     return `${lowerBound} - ${upperBound}`;
   };
+  
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
@@ -59,7 +60,10 @@ const ResultsPage = ({ route }) => {
           <Text style={styles.text}>No image provided</Text>
         )}
         <Text style={styles.resultDetails}>
-          Predicted Weight: {formatWeightRange(p_weight)} maund
+          Predicted Weight(maund): {formatWeightRange(p_weight)} 
+        </Text>
+        <Text style={styles.resultDetails}>
+          Predicted Weight(kg): {p_weight?.toFixed(2)}
         </Text>
       </View>
 
