@@ -15,7 +15,7 @@ const ResultsPage = ({ route }) => {
     if (actualWeight !== null && actualWeight.trim() !== '') {
       try {
         const response = await axios.post(
-          'http://192.168.100.52:5000/test',
+          'http://192.168.8.106:5000/test',
           { actualWeight }, // Sending the actual weight in the request body as an object
           {
             headers: { 'Content-Type': 'application/json' },
@@ -46,9 +46,8 @@ const ResultsPage = ({ route }) => {
         ) : (
           <Text style={styles.text}>No image provided</Text>
         )}
-        <Text style={styles.resultDetails}>Predicted Weight: {p_weight}</Text>
+        <Text style={styles.resultDetails}>Predicted Weight: {(p_weight!==0)?(p_weight/40)?.toFixed(2):p_weight?.toFixed(2)} maund</Text>
       </View>
-      
       <Text style={styles.inputLabel}>Enter Actual Weight (optional):</Text>
       <TextInput
         style={styles.input}
