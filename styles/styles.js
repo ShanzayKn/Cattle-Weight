@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   },
   resultDetails: {
     marginTop:20,
-    fontSize: width * 0.05, // Scalable font size
+    fontSize: width * 0.045, // Scalable font size
     backgroundColor: '#D4E181',
     padding: width * 0.05, // 5% padding
     borderRadius: width * 0.02, // Rounded corners
