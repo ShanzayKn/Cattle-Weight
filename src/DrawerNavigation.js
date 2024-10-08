@@ -47,7 +47,7 @@ const DrawerNavigation = () => {
           drawerLabel: () => (
             <View style={styles.drawerItemContainer}>
               <Icon name="upload" size={24} color="#FFD700" style={styles.icon} />
-              <Text style={styles.drawerItem}>Upload</Text>
+              <Text style={styles.drawerItem}>Home</Text>
             </View>
           ),
         })}
