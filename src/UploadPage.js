@@ -94,7 +94,7 @@ const UploadPage = () => {
     // console.log("image: ",imagePayload)
     try {
       const response = await axios.post(
-        'http://192.168.100.52:5000/predict',
+        'http://192.168.8.106:5000/predict',
         imagePayload,
         {
           headers: { 'Content-Type': 'application/json' },

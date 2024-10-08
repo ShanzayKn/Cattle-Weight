@@ -42,7 +42,7 @@ const ResultsPage = ({ route }) => {
   const formatWeightRange = (weight) => {
     if (!weight) return Math.round(weight);
     const lowerBound = Math.round(weight / 40);
-    const upperBound = Math.round(weight / 40 + 0.32);
+    const upperBound = Math.round(weight / 40 + 1);
     return `${lowerBound} - ${upperBound}`;
   };
   
@@ -62,9 +62,9 @@ const ResultsPage = ({ route }) => {
         <Text style={styles.resultDetails}>
           Predicted Weight(maund): {formatWeightRange(p_weight)} 
         </Text>
-        <Text style={styles.resultDetails}>
+        {/* <Text style={styles.resultDetails}>
           Predicted Weight(kg): {p_weight?.toFixed(2)}
-        </Text>
+        </Text> */}
       </View>
 
       <Text style={styles.inputLabel}>Enter Actual Weight In Maund (optional):</Text>
@@ -79,8 +79,8 @@ const ResultsPage = ({ route }) => {
       {loading ? (
         <ActivityIndicator size="large" color="#ffffff" />
       ) : (
-        <TouchableOpacity style={styles.button} onPress={sendToBackend}>
-          <Text style={styles.submitbutton}>Submit Actual Weight</Text>
+        <TouchableOpacity style={styles.submitbutton} onPress={sendToBackend}>
+          <Text style={styles.submittext}>Submit Actual Weight</Text>
         </TouchableOpacity>
       )}
     </LinearGradient>

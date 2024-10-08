@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   guidlinemodaltext: {
-    color: '#FFD700',
+    color: 'black',
     fontSize: width * 0.05, // Scalable font size
     fontWeight: 'bold',
   },
@@ -132,6 +132,10 @@ const styles = StyleSheet.create({
     fontStyle: 'oblique',
     fontWeight: 'bold',
   },
+  errorText:{
+    color: '#fff',
+    fontWeight: 'bold',
+  },
   guidlinetext: {
     fontSize: width * 0.05, // Scalable font size
     color: '#E4A951',
@@ -170,11 +174,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitbutton: {
+    // fontWeight: 'bold',
     top: -30,
     padding: 10,
     backgroundColor: '#FFD700',
     borderRadius: 5,
     alignItems: 'center',
+  },
+  submittext: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
   guidlinedownloadButton: {
     top: 450,
@@ -261,6 +270,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#D4E181',
     padding: width * 0.05, // 5% padding
     borderRadius: width * 0.02, // Rounded corners
+    color: '#FFFFFF',
+    fontWeight: 'bold',
   },
   textt: {
     fontSize: width * 0.04, // Scalable font size
