@@ -8,7 +8,8 @@ const ResultsPage = ({ route }) => {
   const { imageUri, p_weight } = route.params || {};
   const [actualWeight, setActualWeight] = useState('');
   const [loading, setLoading] = useState(false);
-
+ console.log(p_weight);
+ 
   const handleInputChange = (text) => {
     const numericValue = text.replace(/[^0-9.]/g, '');
     // Allow only one decimal point
@@ -25,7 +26,7 @@ const ResultsPage = ({ route }) => {
     setLoading(true);
     try {
       await axios.post(
-        'http://192.168.8.106:5000/test',
+        'http://68.183.233.127:5000/test',
         { actualWeight },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -41,9 +42,16 @@ const ResultsPage = ({ route }) => {
 
   const formatWeightRange = (weight) => {
     if (!weight) return Math.round(weight);
-    const lowerBound = Math.round(weight / 40);
-    const upperBound = Math.round(weight / 40 + 1);
+    // min_weight = max(predicted_weight.flatten()[0] - 30, 0)  # Ensure min weight is not negative
+    // max_weight = predicted_weight.flatten()[0] + 30
+    console.log("to see: ",weight);
+    
+    const lowerBound = (weight - 30)/40;
+    const upperBound = (weight + 30)/40;
+    console.log("lowervalues:",lowerBound)
+    console.log("uppervalues:",upperBound)
     return `${lowerBound} - ${upperBound}`;
+  
   };
   
 
