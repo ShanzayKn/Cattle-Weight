@@ -25,7 +25,7 @@ const ResultsPage = ({ route }) => {
     setLoading(true);
     try {
       await axios.post(
-        'http://192.168.8.106:5000/test',
+        'http://68.183.233.127:5000/test',
         { actualWeight },
         { headers: { 'Content-Type': 'application/json' } }
       );
