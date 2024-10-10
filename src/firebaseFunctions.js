@@ -5,7 +5,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Function to upload image and metadata
-const uploadImageAndMetadata = async (imageFile, metadata) => {
+const uploadImageAndMetadata = async (imageFile, metadata, lowerBound, upperBound, actualWeight) => {
     const storageRef = ref(storage, `images/${imageFile.name}`);
     const response = await fetch(imageFile.uri);
     const blob = await response.blob(); // Convert image URI to blob
@@ -15,6 +15,9 @@ const uploadImageAndMetadata = async (imageFile, metadata) => {
     
     // Add image URL to metadata
     metadata.image = imageUrl;
+    metadata.lowerBound = lowerBound;
+    metadata.upperBound = upperBound;
+    metadata.actualWeight = actualWeight;
 
     // Add metadata to Firestore
     const docRef = await addDoc(collection(db, 'cattleData'), metadata);

@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Alert, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../styles/styles.js';
 import axios from 'axios';
+import { uploadImageAndMetadata } from './firebaseFunctions.js';
 
 const ResultsPage = ({ route }) => {
   const { imageUri, p_weight } = route.params || {};
   const [actualWeight, setActualWeight] = useState('');
   const [loading, setLoading] = useState(false);
- console.log(p_weight);
- 
+  const [lowerBound, setlowerBound] = useState(null);
+  const [upperBound, setupperBound] = useState(null);
+  
+  useEffect(() => {
+    if (p_weight) {
+      setlowerBound((p_weight - 30) / 40);
+      setupperBound((p_weight + 30) / 40);
+    }
+  }, [p_weight]);
+
+  const metadata = {
+    uploadedAt: new Date().toISOString(),
+    description: 'Cow image for weight prediction',
+  };
+
   const handleInputChange = (text) => {
     const numericValue = text.replace(/[^0-9.]/g, '');
     // Allow only one decimal point
@@ -30,6 +44,9 @@ const ResultsPage = ({ route }) => {
         { actualWeight },
         { headers: { 'Content-Type': 'application/json' } }
       );
+
+      uploadImageAndMetadata(imageUri, metadata, lowerBound, upperBound, actualWeight);
+
       Alert.alert('Success', 'Weight is noted for model betterment');
       setActualWeight('');
     } catch (error) {
@@ -40,20 +57,8 @@ const ResultsPage = ({ route }) => {
     }
   };
 
-  const formatWeightRange = (weight) => {
-    if (!weight) return Math.round(weight);
-    // min_weight = max(predicted_weight.flatten()[0] - 30, 0)  # Ensure min weight is not negative
-    // max_weight = predicted_weight.flatten()[0] + 30
-    console.log("to see: ",weight);
-    
-    const lowerBound = (weight - 30)/40;
-    const upperBound = (weight + 30)/40;
-    console.log("lowervalues:",lowerBound)
-    console.log("uppervalues:",upperBound)
-    return `${lowerBound} - ${upperBound}`;
-  
-  };
-  
+  console.log("lowerBound values:", lowerBound);
+  console.log("upperBound values:", upperBound);
 
   return (
     <LinearGradient colors={['#459877', '#132B22']} style={styles.container}>
@@ -68,11 +73,8 @@ const ResultsPage = ({ route }) => {
           <Text style={styles.text}>No image provided</Text>
         )}
         <Text style={styles.resultDetails}>
-          Predicted Weight(maund): {formatWeightRange(p_weight)} 
+          Predicted Weight (maund): {lowerBound} - {upperBound}
         </Text>
-        {/* <Text style={styles.resultDetails}>
-          Predicted Weight(kg): {p_weight?.toFixed(2)}
-        </Text> */}
       </View>
 
       <Text style={styles.inputLabel}>Enter Actual Weight In Maund (optional):</Text>

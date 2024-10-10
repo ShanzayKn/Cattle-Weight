@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LottieView from 'lottie-react-native';
-import { uploadImageAndMetadata } from './firebaseFunctions.js';
+
 import styles from '../styles/styles.js';
 import axios from 'axios';
 
@@ -65,10 +65,7 @@ const UploadPage = () => {
   const handleUpload = async (image) => {
     setLoadingState({ isLoading: true, loadingText: 'Loading' });
   
-    const metadata = {
-      uploadedAt: new Date().toISOString(),
-      description: 'Cow image for weight prediction',
-    };
+
   
     const imageFile = {
       uri: image.uri,
@@ -80,7 +77,6 @@ const UploadPage = () => {
     const imagePayload = { image: base64Data };
   
     try {
-      await uploadImageAndMetadata(imageFile, metadata);
       await sendToBackend(imagePayload, imageFile.uri);
     } catch (error) {
       console.error('Error during image upload:', error);
